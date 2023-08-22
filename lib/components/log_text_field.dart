@@ -5,13 +5,19 @@ class LogTextField extends StatefulWidget {
   bool isPassword;
   TextInputType keyboardType;
   TextEditingController controller;
+  String? Function(String? value)? validator;
+  IconData? prefixIcon;
+  void Function(String? value)? onChanged;
 
   LogTextField({
     super.key, 
     required this.label,
     required this.controller,
     this.isPassword=false,
-    this.keyboardType=TextInputType.text
+    this.keyboardType=TextInputType.text,
+    this.validator,
+    this.onChanged,
+    this.prefixIcon,
   });
 
   @override
@@ -33,6 +39,7 @@ class _LogTextFieldState extends State<LogTextField> {
       focusNode: myFcocus,
       keyboardType: widget.keyboardType,
       controller: widget.controller,
+      validator: widget.validator,
       obscureText: widget.isPassword ? hidePassword : false,
       cursorColor: isDarkMode ? Colors.white : Colors.black,
       style: const TextStyle(
@@ -40,6 +47,8 @@ class _LogTextFieldState extends State<LogTextField> {
         fontWeight: FontWeight.w600
       ),
       decoration: InputDecoration(
+        prefixIcon: Icon(widget.prefixIcon),
+        prefixIconColor: isDarkMode ? Colors.white70 : Colors.black87,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),),
         focusColor: Colors.black,
         label: Text(
@@ -55,6 +64,7 @@ class _LogTextFieldState extends State<LogTextField> {
         ) : null
       ),
       onTapOutside: (event) => myFcocus.unfocus(),
+      onChanged: widget.onChanged,
     );
   }
 }
