@@ -29,3 +29,12 @@ String? passwordValidator(String? value){
   }
   return null;
 }
+
+String? bioValidator(String? value){
+  if(value != null && value.isNotEmpty){
+    if(value.length>100){
+      return "Your bio cannot be over 100 characters";
+    }
+  }
+  return null;
+}
